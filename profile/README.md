@@ -56,15 +56,6 @@ The Helm chart library containing:
 - **policy-library chart**: The foundational chart that makes PolicyStack elements work
 - **Additional utility charts**: Supporting charts for specific use cases - PENDING
 
-### 💻 **cli**
-The cli implementation of PolicyStack that allows for searching, installing, and scaffolding elements.
-
-### 🏬 **marketplace**
-Marketplace for PolicyStack configurations.
-- **Searchable**: Allows for easily searchable configurations through a compiled index.
-- **Version control**: Creates separate version instances for upgradability.
-- **Upgrade paths**: Upgrades between versions are seamless due to recommended pathing.
-
 ## Key Benefits
 
 ✅ **Consistency**: Apply the same security and configurations everywhere  
