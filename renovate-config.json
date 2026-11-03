@@ -50,6 +50,12 @@
       "enabled": false
     },
     {
+      "description": "Red Hat images need a pull secret, and their tags follow the OCP floor (moved by hand).",
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["registry.redhat.io/**"],
+      "enabled": false
+    },
+    {
       "description": "The chart calls PolicyStack's reusable validate workflow at @main on purpose.",
       "matchDepTypes": ["workflow"],
       "matchPackageNames": ["PolicyStack/PolicyStack"],
