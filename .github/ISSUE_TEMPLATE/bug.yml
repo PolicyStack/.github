@@ -1,0 +1,55 @@
+name: Bug
+description: Something renders, syncs or enforces wrong.
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, what you expected, and how to reproduce it.
+    validations:
+      required: true
+  - type: input
+    id: ocp
+    attributes:
+      label: OCP version
+      placeholder: "4.20.8"
+    validations:
+      required: true
+  - type: input
+    id: acm
+    attributes:
+      label: ACM version
+      placeholder: "2.16.1"
+    validations:
+      required: true
+  - type: input
+    id: gitops
+    attributes:
+      label: GitOps version
+      placeholder: "1.18.2"
+    validations:
+      required: true
+  - type: input
+    id: policy-library
+    attributes:
+      label: policy-library version
+      placeholder: "3.4.0"
+    validations:
+      required: true
+  - type: input
+    id: element
+    attributes:
+      label: Element
+      placeholder: "stack/gitops"
+  - type: input
+    id: revision
+    attributes:
+      label: Fleet revision
+      description: "`revision` from the cluster's fleet file."
+      placeholder: "v0.1.0"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Rendered output or logs
+      description: Policy status, Argo CD sync error, or `helm template` output. Redact secrets.
+      render: text

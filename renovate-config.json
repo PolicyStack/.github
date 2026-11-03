@@ -1,0 +1,63 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "PolicyStack org preset. Consume with: {\"extends\": [\"github>PolicyStack/.github:renovate-config\"]}",
+    "Intentionally untracked: Helm (mise pin and the 4.2.1 validate.yml matrix leg) follows the OpenShift GitOps floor, not upstream releases."
+  ],
+  "extends": ["config:best-practices", ":semanticCommits", "schedule:weekly"],
+  "minimumReleaseAge": "7 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
+  "pre-commit": { "enabled": true },
+  "postUpdateOptions": ["gomodTidy"],
+  "customManagers": [
+    {
+      "description": "Validator CRD pins: '# renovate: datasource=git-refs depName=<repo url> branch=<branch>' above '<NAME>_SHA ?= <sha>'.",
+      "customType": "regex",
+      "managerFilePatterns": ["/^tools/validator/Makefile$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) branch=(?<currentValue>\\S+)\\n[A-Z0-9_]+_SHA \\?= (?<currentDigest>[a-f0-9]{40})"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "One PR for every element's chart pin, raised as soon as the chart is released.",
+      "matchPackageNames": ["policy-library"],
+      "groupName": "policy-library",
+      "minimumReleaseAge": "0 days",
+      "schedule": ["at any time"]
+    },
+    {
+      "matchPackageNames": ["k8s.io/**", "sigs.k8s.io/**"],
+      "groupName": "k8s"
+    },
+    {
+      "description": "Moves with the ACM floor.",
+      "matchPackageNames": ["github.com/stolostron/go-template-utils/**"],
+      "matchUpdateTypes": ["minor", "major"],
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Validator CRD pins: digest bumps only. git-refs also returns newer tags and branches; the ACM floor branch moves by hand.",
+      "matchManagers": ["custom.regex"],
+      "matchUpdateTypes": ["major", "minor", "patch"],
+      "enabled": false
+    },
+    {
+      "description": "Moves with the OpenShift GitOps floor.",
+      "matchManagers": ["mise"],
+      "matchDepNames": ["helm"],
+      "enabled": false
+    },
+    {
+      "description": "The chart calls PolicyStack's reusable validate workflow at @main on purpose.",
+      "matchDepTypes": ["workflow"],
+      "matchPackageNames": ["PolicyStack/PolicyStack"],
+      "pinDigests": false
+    },
+    {
+      "matchManagers": ["github-actions", "pre-commit", "mise"],
+      "groupName": "tooling"
+    }
+  ]
+}

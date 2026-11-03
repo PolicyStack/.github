@@ -1,0 +1,22 @@
+name: Feature
+description: A new element, setting or workflow.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What you need to do today and why PolicyStack can't.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: The setting or behavior you want. Link the Red Hat doc if one covers it.
+    validations:
+      required: true
+  - type: input
+    id: element
+    attributes:
+      label: Element
+      placeholder: "stack/gitops, or new"
