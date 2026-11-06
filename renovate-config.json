@@ -21,13 +21,6 @@
   ],
   "packageRules": [
     {
-      "description": "One PR for every element's chart pin, raised as soon as the chart is released.",
-      "matchPackageNames": ["policy-library"],
-      "groupName": "policy-library",
-      "minimumReleaseAge": "0 days",
-      "schedule": ["at any time"]
-    },
-    {
       "matchPackageNames": ["k8s.io/**", "sigs.k8s.io/**"],
       "groupName": "k8s"
     },
